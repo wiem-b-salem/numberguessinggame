@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Guess the Number</h1>
+            <p id="header-description">Configure your game settings and start playing!</p>
+        </header>
+
+        <div class="game-settings">
+            <h3>⚙️ Game Settings</h3>
+            <div class="settings-grid">
+                <div class="setting-group">
+                    <label for="digit-count">Number of digits:</label>
+                    <select id="digit-count">
+                        <option value="3">3 digits</option>
+                        <option value="4" selected>4 digits</option>
+                        <option value="5">5 digits</option>
+                        <option value="6">6 digits</option>
+                        <option value="7">7 digits</option>
+                        <option value="8">8 digits</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="allow-duplicates">Allow duplicate digits:</label>
+                    <input type="checkbox" id="allow-duplicates">
+                </div>
+                <div class="setting-group">
+                    <label for="max-attempts">Max attempts:</label>
+                    <select id="max-attempts">
+                        <option value="5">5 attempts</option>
+                        <option value="10" selected>10 attempts</option>
+                        <option value="15">15 attempts</option>
+                        <option value="20">20 attempts</option>
+                        <option value="infinite">Infinite</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-info">
+            <div class="attempts">
+                <span>Attempts: </span>
+                <span id="attempt-count">0</span>
+                <span id="attempt-limit">/10</span>
+            </div>
+            <div class="status" id="game-status">Enter your guess below!</div>
+        </div>
+
+        <div class="input-section">
+            <input type="text" id="guess-input" placeholder="Enter your guess" maxlength="8">
+            <button id="submit-guess">Submit Guess</button>
+            <button id="start-game" style="display: none;">Start Game</button>
+        </div>
+
+        <div class="guesses-container">
+            <h3>Your Guesses:</h3>
+            <div id="guesses-list"></div>
+        </div>
+
+        <div class="game-controls">
+            <button id="new-game" style="display: none;">New Game</button>
+        </div>
+
+        <div class="rules">
+            <h3>How to Play:</h3>
+            <ul>
+                <li>Configure your game settings above</li>
+                <li>I'll generate a random number based on your settings</li>
+                <li>Enter your guess with the correct number of digits</li>
+                <li>I'll tell you:
+                    <ul>
+                        <li>🔴 How many digits are correct AND in the right position</li>
+                        <li>🟡 How many digits are correct but in the wrong position</li>
+                        <li>⚫ How many digits are completely wrong</li>
+                    </ul>
+                </li>
+                <li>Use the feedback to narrow down your next guess!</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
