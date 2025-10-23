@@ -19,7 +19,7 @@ body {
     border-radius: 20px;
     padding: 40px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 1200px;
     width: 100%;
     backdrop-filter: blur(10px);
 }
@@ -39,6 +39,20 @@ header h1 {
 header p {
     color: #666;
     font-size: 1.1em;
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+    align-items: start;
+    margin-bottom: 30px;
+}
+
+.game-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .game-settings {
@@ -309,6 +323,38 @@ header p {
     margin-bottom: 5px;
 }
 
+.notes-panel {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #6c757d;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    height: fit-content;
+}
+
+.notes-panel h3 {
+    color: #333;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.notes-panel textarea {
+    width: 100%;
+    min-height: 300px;
+    resize: vertical;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.95em;
+    line-height: 1.5;
+    outline: none;
+}
+
+.notes-panel textarea:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
 /* Responsive design */
 @media (max-width: 600px) {
     .container {
@@ -331,6 +377,12 @@ header p {
         flex-direction: column;
         gap: 10px;
         text-align: center;
+    }
+}
+
+@media (max-width: 900px) {
+    .game-layout {
+        grid-template-columns: 1fr;
     }
 }
 

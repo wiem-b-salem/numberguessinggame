@@ -46,28 +46,37 @@
             </div>
         </div>
 
-        <div class="game-info">
-            <div class="attempts">
-                <span>Attempts: </span>
-                <span id="attempt-count">0</span>
-                <span id="attempt-limit">/10</span>
+        <div class="game-layout">
+            <div class="game-section">
+                <div class="game-info">
+                    <div class="attempts">
+                        <span>Attempts: </span>
+                        <span id="attempt-count">0</span>
+                        <span id="attempt-limit">/10</span>
+                    </div>
+                    <div class="status" id="game-status">Enter your guess below!</div>
+                </div>
+
+                <div class="input-section">
+                    <input type="text" id="guess-input" placeholder="Enter your guess" maxlength="10">
+                    <button id="submit-guess">Submit Guess</button>
+                    <button id="start-game" style="display: none;">Start Game</button>
+                </div>
+
+                <div class="guesses-container">
+                    <h3>Your Guesses:</h3>
+                    <div id="guesses-list"></div>
+                </div>
+
+                <div class="game-controls">
+                    <button id="new-game" style="display: none;">New Game</button>
+                </div>
             </div>
-            <div class="status" id="game-status">Enter your guess below!</div>
-        </div>
 
-        <div class="input-section">
-            <input type="text" id="guess-input" placeholder="Enter your guess" maxlength="10">
-            <button id="submit-guess">Submit Guess</button>
-            <button id="start-game" style="display: none;">Start Game</button>
-        </div>
-
-        <div class="guesses-container">
-            <h3>Your Guesses:</h3>
-            <div id="guesses-list"></div>
-        </div>
-
-        <div class="game-controls">
-            <button id="new-game" style="display: none;">New Game</button>
+            <aside class="notes-panel">
+                <h3>📝 Notes</h3>
+                <textarea id="notes" placeholder="Write your notes here..."></textarea>
+            </aside>
         </div>
 
         <div class="rules">
