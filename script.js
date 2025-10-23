@@ -109,6 +109,9 @@ class NumberGuessingGame {
         this.guesses = [];
         this.gameStarted = true;
         
+        // Clear the guesses list
+        this.guessesList.innerHTML = '';
+        
         this.updateUI();
         this.updateHeaderDescription();
         this.guessInput.value = '';
@@ -218,13 +221,13 @@ class NumberGuessingGame {
         const feedbackHTML = `
             <div class="guess-feedback">
                 <div class="feedback-item feedback-correct">
-                    🔴 ${feedback.correctPosition}
+                    🟢 ${feedback.correctPosition}
                 </div>
                 <div class="feedback-item feedback-partial">
                     🟡 ${feedback.wrongPosition}
                 </div>
                 <div class="feedback-item feedback-wrong">
-                    ⚫ ${feedback.wrongNumber}
+                    🔴 ${feedback.wrongNumber}
                 </div>
             </div>
         `;
@@ -246,6 +249,9 @@ class NumberGuessingGame {
         this.submitButton.disabled = true;
         this.submitButton.style.display = 'none';
         this.newGameButton.style.display = 'inline-block';
+        
+        // Add success divider
+        this.addSuccessDivider();
         
         // Add success animation
         document.querySelector('.container').classList.add('success');
@@ -287,6 +293,19 @@ class NumberGuessingGame {
                 this.gameStatus.className = 'status';
             }
         }, 3000);
+    }
+    
+    addSuccessDivider() {
+        const divider = document.createElement('div');
+        divider.className = 'success-divider';
+        divider.innerHTML = `
+            <div class="success-marker">
+                <span class="success-text">✅ CORRECT GUESS!</span>
+                <span class="success-number">${this.secretNumber}</span>
+            </div>
+        `;
+        this.guessesList.appendChild(divider);
+        this.guessesList.scrollTop = this.guessesList.scrollHeight;
     }
     
     showStartButton() {

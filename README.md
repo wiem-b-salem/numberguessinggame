@@ -5,7 +5,7 @@ A highly customizable web-based number guessing game with advanced settings!
 ## How to Play
 
 1. **Configure Settings**: Choose your preferred game parameters:
-   - **Number of digits**: 3-8 digits
+   - **Number of digits**: 3-10 digits
    - **Allow duplicates**: Enable/disable duplicate digits
    - **Max attempts**: 5, 10, 15, 20, or infinite attempts
 2. **Start Game**: Click "Start Game" to begin
@@ -26,7 +26,7 @@ A highly customizable web-based number guessing game with advanced settings!
 ## Features
 
 - ⚙️ **Customizable Settings**:
-  - Variable number of digits (3-8)
+  - Variable number of digits (3-10)
   - Option to allow/disable duplicate digits
   - Flexible attempt limits (including infinite mode)
 - ✨ Beautiful, modern UI with animations
@@ -41,13 +41,13 @@ A highly customizable web-based number guessing game with advanced settings!
 
 - **Classic Mode**: 4 digits, no duplicates, 10 attempts
 - **Easy Mode**: 3 digits, duplicates allowed, infinite attempts
-- **Hard Mode**: 8 digits, no duplicates, 5 attempts
+- **Hard Mode**: 10 digits, no duplicates, 5 attempts
 - **Custom Mode**: Mix and match any settings you prefer!
 
 ## Game Logic
 
 The game generates a random number based on your settings:
-- **Digit count**: 3-8 digits as selected
+- **Digit count**: 3-10 digits as selected
 - **Duplicates**: Allowed or disabled based on your choice
 - **Attempts**: Limited or infinite based on your preference
 - **Feedback**: Always shows correct position, wrong position, and wrong digits
