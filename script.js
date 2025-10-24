@@ -8,6 +8,7 @@ class NumberGuessingGame {
         this.digitCount = 4;
         this.allowDuplicates = false;
         this.gameStarted = false;
+        this.uiMode = 'classic';
         
         this.initializeElements();
         this.setupEventListeners();
@@ -27,6 +28,7 @@ class NumberGuessingGame {
         this.digitCountSelect = document.getElementById('digit-count');
         this.allowDuplicatesCheckbox = document.getElementById('allow-duplicates');
         this.maxAttemptsSelect = document.getElementById('max-attempts');
+        this.uiModeSelect = document.getElementById('ui-mode');
         this.headerDescription = document.getElementById('header-description');
     }
     
@@ -54,6 +56,7 @@ class NumberGuessingGame {
         this.digitCountSelect.addEventListener('change', () => this.updateGameSettings());
         this.allowDuplicatesCheckbox.addEventListener('change', () => this.updateGameSettings());
         this.maxAttemptsSelect.addEventListener('change', () => this.updateGameSettings());
+        this.uiModeSelect.addEventListener('change', () => this.updateGameSettings());
     }
     
     generateSecretNumber() {
@@ -81,6 +84,7 @@ class NumberGuessingGame {
         this.allowDuplicates = this.allowDuplicatesCheckbox.checked;
         const maxAttemptsValue = this.maxAttemptsSelect.value;
         this.maxAttempts = maxAttemptsValue === 'infinite' ? Infinity : parseInt(maxAttemptsValue);
+        this.uiMode = this.uiModeSelect.value;
         
         // Update UI elements
         this.guessInput.maxLength = this.digitCount;
@@ -197,7 +201,7 @@ class NumberGuessingGame {
         this.displayGuess(guessData);
         
         // Check win condition
-        if (feedback.correctPosition === 4) {
+        if (feedback.correctPosition === this.digitCount) {
             this.gameWon();
             return;
         }
@@ -217,25 +221,29 @@ class NumberGuessingGame {
         const guessElement = document.createElement('div');
         guessElement.className = 'guess-item';
         
-        const feedback = guessData.feedback;
-        const feedbackHTML = `
-            <div class="guess-feedback">
-                <div class="feedback-item feedback-correct">
-                    🟢 ${feedback.correctPosition}
+        if (this.uiMode === 'wordle') {
+            guessElement.innerHTML = this.createWordleDisplay(guessData);
+        } else {
+            const feedback = guessData.feedback;
+            const feedbackHTML = `
+                <div class="guess-feedback">
+                    <div class="feedback-item feedback-correct">
+                        🟢 ${feedback.correctPosition}
+                    </div>
+                    <div class="feedback-item feedback-partial">
+                        🟡 ${feedback.wrongPosition}
+                    </div>
+                    <div class="feedback-item feedback-wrong">
+                        🔴 ${feedback.wrongNumber}
+                    </div>
                 </div>
-                <div class="feedback-item feedback-partial">
-                    🟡 ${feedback.wrongPosition}
-                </div>
-                <div class="feedback-item feedback-wrong">
-                    🔴 ${feedback.wrongNumber}
-                </div>
-            </div>
-        `;
-        
-        guessElement.innerHTML = `
-            <div class="guess-number">${guessData.number}</div>
-            ${feedbackHTML}
-        `;
+            `;
+            
+            guessElement.innerHTML = `
+                <div class="guess-number">${guessData.number}</div>
+                ${feedbackHTML}
+            `;
+        }
         
         this.guessesList.appendChild(guessElement);
         this.guessesList.scrollTop = this.guessesList.scrollHeight;
@@ -293,6 +301,50 @@ class NumberGuessingGame {
                 this.gameStatus.className = 'status';
             }
         }, 3000);
+    }
+    
+    createWordleDisplay(guessData) {
+        const secret = this.secretNumber.split('');
+        const guess = guessData.number.split('');
+        const tiles = [];
+        
+        // Create tile states for each digit
+        const tileStates = new Array(this.digitCount).fill('absent');
+        const secretCounts = {};
+        const guessCounts = {};
+        
+        // Count occurrences in secret number
+        for (let i = 0; i < this.digitCount; i++) {
+            secretCounts[secret[i]] = (secretCounts[secret[i]] || 0) + 1;
+        }
+        
+        // First pass: mark correct positions
+        for (let i = 0; i < this.digitCount; i++) {
+            if (guess[i] === secret[i]) {
+                tileStates[i] = 'correct';
+                secretCounts[guess[i]]--;
+                guessCounts[guess[i]] = (guessCounts[guess[i]] || 0) + 1;
+            }
+        }
+        
+        // Second pass: mark present but wrong position
+        for (let i = 0; i < this.digitCount; i++) {
+            if (tileStates[i] !== 'correct' && secretCounts[guess[i]] > 0) {
+                tileStates[i] = 'present';
+                secretCounts[guess[i]]--;
+            }
+        }
+        
+        // Create tiles HTML
+        for (let i = 0; i < this.digitCount; i++) {
+            tiles.push(`<div class="wordle-tile ${tileStates[i]} animate" style="animation-delay: ${i * 0.1}s">${guess[i]}</div>`);
+        }
+        
+        return `
+            <div class="wordle-tiles">
+                ${tiles.join('')}
+            </div>
+        `;
     }
     
     addSuccessDivider() {
